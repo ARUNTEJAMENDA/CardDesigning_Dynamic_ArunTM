@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title>CardDesigner by aruntejamenda</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset = "UTF-8"/>
+        <style>
+            body{
+                height: 100vh;
+                width: 100vw;
+                /*  */
+                margin:0;
+                padding:0;
+                /*  */
+                display:flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+            #source{
+                margin: 0 0 0 2%;
+                height:90vh;
+                width:45%;
+            }
+            #display{
+                height:90vh;
+                width:50%;
+                border: 1px solid black;
+            }
+            @media screen and (max-width:600px){
+                body{
+                    flex-direction: column-reverse;
+                }
+                #source{
+                    width:90vw;
+                }
+                #display{
+                    margin:10px 0 10px 0;
+                    height: max-content;
+                    width:90vw;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        </style>
+    </head>
+    <body onload ="run();">
+        <textarea id="source" oninput="run()"><div style="text-align: center;">Code here...</div></textarea>
+        <section id="display"></section>
+        <script>
+            function run(){
+                const source = document.getElementById("source").value;
+                const display = document.getElementById("display");
+                display.innerHTML = source;
+                console.log(source);
+            };
+        </script>
+    </body>
+</html>
