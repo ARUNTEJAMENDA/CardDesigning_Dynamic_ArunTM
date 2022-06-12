@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title>CardDesigner by aruntejamenda</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset = "UTF-8"/>
+        <style>
+            body{
+                height: 100vh;
+                width: 100vw;
+                /*  */
+                margin:0;
+                padding:0;
+                /*  */
+            }
+            #source{
+                height:50vh;
+                width:50vw;
+                /*  */
+                position: absolute;
+                left:10%;
+                top:10%;
+                /*  */
+                border:2px solid rgba(128, 128, 128, 0.329);
+                border-top:10px solid rgba(128, 128, 128, 0.329);
+            }
+            #display{
+                height:100vh;
+                width:100vw;
+            }
+            #select{
+                position: absolute;
+                left:10%;
+                top:1%;
+                margin-bottom: 10px;
+            }
+            @media screen and (max-width:600px){
+                #select{
+                    position: unset;
+                    /* left:10%; */
+                    /* top:1%; */
+                }
+                body{
+                    flex-direction: column-reverse;
+                }
+                #source{
+                    width:90vw;
+                }
+                #display{
+                    margin:10px 0 10px 0;
+                    height: max-content;
+                    width:90vw;
+                    display: flex;
+                    justify-content: center;
+                    overflow-y: scroll;
+                }
+            }
+        </style>
+    </head>
+    <body onload ="run();">
+        <!-- <textarea id="source" oninput="get(event);run();"> -->
+        <textarea id="source" oninput="run();">
+            <div style="text-align: center;">Code here...</div>
+        </textarea>
+        <div id="select">
+            <label for="tags">Select Tags:</label>
+            <select name="tags" id="tags" onchange="var target = document.getElementById('source');if(target.setRangeText){target.setRangeText(this.value)}else{target.focus();document.execCommand('insertText',false,this.value)};this.selectedIndex=0;">
+                <option>Select</option>
+                <option value="<span id='' class='' style=''></span>">span</option>
+                <option value="<div id='' class='' style=''></div>">div</option>
+                <option value="<img id='' class='' style='' src='' alt=''/>">img</option>
+                <option value="<select id='' class='' style=''><option></option><option></option><option></option><option></option></select>">select</option>
+                <option value="<section id='' class='' style=''></section>">section</option>
+                <option value="<nav id='' class='' style=''></nav>">nav</option>
+            </select>
+        </div>
+        <section id="display"></section>
+        <script>
+            // temp = "";
+            // function get(event){
+            //     var x=e.which;
+            //     document.write(x);
+                // console.log(event.KeyCode);
+                // if((event.data=='<' || temp[0]=="<")&& temp[-1]!=">"){
+                //     completion(event);
+                // }else if(event.data=='>'){
+                //     temp= temp+event.data;
+                //     alert(temp);
+                // }
+            // }
+            function completion(event){
+                    temp= temp+event.data;
+            }
+            function run(){
+                const source = document.getElementById("source").value;
+                const display = document.getElementById("display");
+                display.innerHTML = source;
+                // console.log(source);
+            };
+
+            /*------------------------------------------------------*/
+            if(screen.width>700){
+                dragElement(document.getElementById("source"));
+                function dragElement(elmnt) {var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;if (document.getElementById(elmnt.id + "header")) {document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;} else {elmnt.onmousedown = dragMouseDown;}function dragMouseDown(e) {e = e || window.event;e.preventDefault();pos3 = e.clientX;pos4 = e.clientY;document.onmouseup = closeDragElement;document.onmousemove = elementDrag;}function elementDrag(e) {e = e || window.event;e.preventDefault();pos1 = pos3 - e.clientX;pos2 = pos4 - e.clientY;pos3 = e.clientX;pos4 = e.clientY;elmnt.style.top = (elmnt.offsetTop - pos2) + "px";elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";}function closeDragElement() {document.onmouseup = null;document.onmousemove = null;}}
+            }else{
+                var box = document.getElementById('source');
+                box.addEventListener('touchmove', function(e) {var touchLocation = e.targetTouches[0];box.style.left = touchLocation.pageX-50 + 'px';box.style.top = touchLocation.pageY-50 + 'px';})
+                box.addEventListener('touchend', function(e) {var x = parseInt(box.style.left);var y = parseInt(box.style.top);})
+            }
+            /*------------------------------------------------------*/
+        </script>
+    </body>
+</html>
