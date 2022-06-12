@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <title>CardDesigner by aruntejamenda</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset = "UTF-8"/>
+        <style>
+            body{
+                height: 100vh;
+                width: 100vw;
+                /*  */
+                margin:0;
+                padding:0;
+                /*  */
+                display:flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+            #source{
+                margin: 0 0 0 2%;
+                height:90vh;
+                width:45%;
+            }
+            #display{
+                height:90vh;
+                width:50%;
+                border: 1px solid black;
+                overflow-y: scroll;
+            }
+            #select{
+                position: absolute;
+                left:10%;
+                top:1%;
+                margin-bottom: 10px;
+            }
+            @media screen and (max-width:600px){
+                #select{
+                    position: unset;
+                    /* left:10%; */
+                    /* top:1%; */
+                }
+                body{
+                    flex-direction: column-reverse;
+                }
+                #source{
+                    width:90vw;
+                }
+                #display{
+                    margin:10px 0 10px 0;
+                    height: max-content;
+                    width:90vw;
+                    display: flex;
+                    justify-content: center;
+                    overflow-y: scroll;
+                }
+            }
+        </style>
+    </head>
+    <body onload ="run();">
+        <!-- <textarea id="source" oninput="get(event);run();"> -->
+        <textarea id="source" oninput="run();">
+            <div style="text-align: center;">Code here...</div>
+        </textarea>
+        <div id="select">
+            <label for="tags">Select Tags:</label>
+            <select name="tags" id="tags" onchange="var target = document.getElementById('source');if(target.setRangeText){target.setRangeText(this.value)}else{target.focus();document.execCommand('insertText',false,this.value)};this.selectedIndex=0;">
+                <option>Select</option>
+                <option value="<span id='' class='' style=''></span>">span</option>
+                <option value="<div id='' class='' style=''></div>">div</option>
+                <option value="<img id='' class='' style='' src='' alt=''/>">img</option>
+                <option value="<select id='' class='' style=''><option></option><option></option><option></option><option></option></select>">select</option>
+                <option value="<section id='' class='' style=''></section>">section</option>
+                <option value="<nav id='' class='' style=''></nav>">nav</option>
+            </select>
+        </div>
+        <section id="display"></section>
+        <script>
+            // temp = "";
+            // function get(event){
+            //     var x=e.which;
+            //     document.write(x);
+                // console.log(event.KeyCode);
+                // if((event.data=='<' || temp[0]=="<")&& temp[-1]!=">"){
+                //     completion(event);
+                // }else if(event.data=='>'){
+                //     temp= temp+event.data;
+                //     alert(temp);
+                // }
+            // }
+            function completion(event){
+                    temp= temp+event.data;
+            }
+            function run(){
+                const source = document.getElementById("source").value;
+                const display = document.getElementById("display");
+                display.innerHTML = source;
+                // console.log(source);
+            };
+        </script>
+    </body>
+</html>
